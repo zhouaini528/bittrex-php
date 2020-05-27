@@ -4,16 +4,17 @@
  * @author lin <465382251@qq.com>
  * */
 
-use Lin\Bitfinex\Bitfinex;
+use Lin\Bittrex\Bittrex;
 
 require __DIR__ .'../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$bitfinex=new Bitfinex();
+//If you have an Subaccount Id, you can fill it in
+$bittrex=new Bittrex($key,$secret,$subaccount_id='');
 
 //You can set special needs
-$bitfinex->setOptions([
+$bittrex->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
@@ -30,49 +31,74 @@ $bitfinex->setOptions([
 ]);
 
 try {
-    $result=$bitfinex->market()->getPlatformStatus();
+    $result=$bittrex->market()->headTrade([
+        'marketSymbol'=>'BTC-USD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+die;
+
+try {
+    $result=$bittrex->market()->getTrades([
+        'marketSymbol'=>'BTC-USD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+die;
+
+try {
+    $result=$bittrex->market()->getCandles([
+        'marketSymbol'=>'BTC-USD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+die;
+
+try {
+    $result=$bittrex->market()->getTicker([
+        'marketSymbol'=>'BTC-USD'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+die;
+
+try {
+    $result=$bittrex->market()->getTickers();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+die;
+
+try {
+    $result=$bittrex->market()->headSummaries();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+die;
+
+try {
+    $result=$bittrex->market()->getSummaries();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$bitfinex->market()->getTickers([
-        'symbols'=>'tBTCUSD'
-    ]);
+    $result=$bittrex->market()->gets();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-try {
-    $result=$bitfinex->market()->getTicker([
-        'symbol'=>'tBTCUSD'
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$bitfinex->market()->getTradesHist([
-        'symbol'=>'tBTCUSD',
-        'limit'=>2,
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$bitfinex->market()->getBook([
-        'symbol'=>'tBTCUSD',
-        'precision'=>'P0',
-        'len'=>1
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
 
 ?>

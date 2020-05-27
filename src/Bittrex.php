@@ -6,18 +6,28 @@
 namespace Lin\Bittrex;
 
 
+use Lin\Bittrex\Api\Account;
+use Lin\Bittrex\Api\Market;
+
 class Bittrex
 {
     protected $key;
     protected $secret;
+    protected $subaccount_id='';
     protected $host;
     
     protected $options=[];
     
-    function __construct(string $key='',string $secret='',string $host='https://api.bittrex.com'){
+    function __construct(string $key='',string $secret='',string $subaccount_id='',string $host='https://api.bittrex.com'){
         $this->key=$key;
         $this->secret=$secret;
+        $this->subaccount_id=$subaccount_id;
         $this->host=$host;
+        
+        if(stripos($subaccount_id,'http')===0) {
+            $this->host=$subaccount_id;
+            $this->subaccount_id='';
+        }
     }
     
     /**
@@ -27,6 +37,7 @@ class Bittrex
         return [
             'key'=>$this->key,
             'secret'=>$this->secret,
+            'subaccount_id'=>$this->subaccount_id,
             'host'=>$this->host,
             'options'=>$this->options,
         ];
@@ -44,5 +55,12 @@ class Bittrex
      * */
     function account(){
         return new Account($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function market(){
+        return new Market($this->init());
     }
 }

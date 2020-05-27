@@ -14,11 +14,15 @@ class Request
     
     protected $secret='';
     
+    protected $subaccount_id='';
+    
     protected $host='';
     
     protected $nonce='';
     
     protected $signature='';
+    
+    protected $content_hash='';
     
     protected $headers=[];
     
@@ -35,6 +39,7 @@ class Request
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
         $this->host=$data['host'] ?? '';
+        $this->subaccount_id=$data['subaccount_id'] ?? '';
         
         $this->options=$data['options'] ?? [];
     }
@@ -44,6 +49,8 @@ class Request
      * */
     protected function auth(){
         $this->nonce();
+        
+        $this->contentHash();
         
         $this->signature();
         
@@ -63,10 +70,16 @@ class Request
      * 
      * */
     protected function signature(){
-        if ($this->type=='POST') {
-            $signature='/api'.$this->path.$this->nonce.json_encode($this->data);
-            $this->signature = hash_hmac('sha384',$signature,$this->secret);
-        }
+        $signature=$this->nonce.$this->host.$this->path.$this->type.$this->content_hash.$this->subaccount_id;
+        $this->signature=hash_hmac('sha512',$signature,$this->secret);
+    }
+    
+    /**
+     *
+     * */
+    protected function contentHash(){
+        $content=empty($this->data) ? '' : json_encode($this->data);
+        $this->content_hash=hash('sha512', $content);
     }
     
     /**
@@ -75,13 +88,12 @@ class Request
     protected function headers(){
         $this->headers= [
             'Content-Type' => 'application/json',
+            'Api-Key'=>$this->key,
+            'Api-Timestamp'=>$this->nonce,
+            'Api-Content-Hash'=>$this->content_hash,
+            'Api-Signature'=>$this->signature,
+            'Api-Subaccount-Id '=>$this->subaccount_id,
         ];
-        
-        if(!empty($this->key) || !empty($this->secret)) $this->headers=array_merge($this->headers,[
-            'bfx-nonce'=>$this->nonce,
-            'bfx-apikey'=>$this->key,
-            'bfx-signature'=>$this->signature,
-        ]);
     }
     
     /**
@@ -112,9 +124,10 @@ class Request
         
         $url=$this->host.$this->path;
         
-        if($this->type=='GET') $url.='?'.http_build_query($this->data);
+        if(in_array($this->type,['GET','HEAD'])) $url.=empty($this->data)  ? '' : '?'.http_build_query();
         else $this->options['body']=json_encode($this->data);
-        
+        /* print_r($this->options);
+        echo $url; */
         $response = $client->request($this->type, $url, $this->options);
         
         return $response->getBody()->getContents();

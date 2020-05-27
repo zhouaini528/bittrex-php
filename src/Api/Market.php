@@ -65,7 +65,9 @@ class Market extends Request
     public function getTicker(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/ticker';
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -75,7 +77,9 @@ class Market extends Request
     public function get(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'];
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -85,7 +89,9 @@ class Market extends Request
     public function getSummary(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/summary';
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -95,7 +101,9 @@ class Market extends Request
     public function getOrderbook(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/orderbook';
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -105,7 +113,9 @@ class Market extends Request
     public function headOrderbook(array $data=[]){
         $this->type='HEAD';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/orderbook';
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -115,7 +125,9 @@ class Market extends Request
     public function getTrades(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/trades';
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -125,7 +137,9 @@ class Market extends Request
     public function headTrade(array $data=[]){
         $this->type='HEAD';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/trade';
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -135,7 +149,9 @@ class Market extends Request
     public function getCandles(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/candles';
+        unset($data['marketSymbol']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -145,7 +161,11 @@ class Market extends Request
     public function getCandlesRecent(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/candles/'.$data['candleInterval'].'/recent';
+        unset($data['marketSymbol']);
+        unset($data['candleInterval']);
         $this->data=$data;
+        
+        
         return $this->exec();
     }
     
@@ -155,7 +175,10 @@ class Market extends Request
     public function headCandlesRecent(array $data=[]){
         $this->type='HEAD';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/candles/'.$data['candleInterval'].'/recent';
+        unset($data['marketSymbol']);
+        unset($data['candleInterval']);
         $this->data=$data;
+        
         return $this->exec();
     }
     
@@ -165,7 +188,13 @@ class Market extends Request
     public function getCandlesHistorical(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets/'.$data['marketSymbol'].'/candles/'.$data['candleInterval'].'/historical/'.$data['year'].'/'.$data['month'].'/'.$data['day'];
+        unset($data['marketSymbol']);
+        unset($data['candleInterval']);
+        unset($data['year']);
+        unset($data['month']);
+        unset($data['day']);
         $this->data=$data;
+        
         return $this->exec();
     }
 }
