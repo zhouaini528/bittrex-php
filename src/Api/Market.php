@@ -12,7 +12,7 @@ class Market extends Request
     /**
      *  GET /markets
      * */
-    public function gets(array $data=[]){
+    public function getList(array $data=[]){
         $this->type='GET';
         $this->path='/v3/markets';
         $this->data=$data;

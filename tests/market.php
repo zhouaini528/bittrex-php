@@ -94,7 +94,7 @@ try {
 }
 
 try {
-    $result=$bittrex->market()->gets();
+    $result=$bittrex->market()->getList();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
