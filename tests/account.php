@@ -31,7 +31,7 @@ $bittrex->setOptions([
 ]);
 
 try {
-    $result=$bittrex->account()->getl();
+    $result=$bittrex->account()->get();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
