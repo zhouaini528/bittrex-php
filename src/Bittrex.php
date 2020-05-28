@@ -8,6 +8,7 @@ namespace Lin\Bittrex;
 
 use Lin\Bittrex\Api\Account;
 use Lin\Bittrex\Api\Market;
+use Lin\Bittrex\Api\Order;
 
 class Bittrex
 {
@@ -62,5 +63,12 @@ class Bittrex
      * */
     function market(){
         return new Market($this->init());
+    }
+    
+    /**
+     *
+     * */
+    function order(){
+        return new Order($this->init());
     }
 }

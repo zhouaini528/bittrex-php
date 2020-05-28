@@ -126,8 +126,7 @@ class Request
         
         if(in_array($this->type,['GET','HEAD'])) $url.=empty($this->data)  ? '' : '?'.http_build_query();
         else $this->options['body']=json_encode($this->data);
-        /* print_r($this->options);
-        echo $url; */
+        
         $response = $client->request($this->type, $url, $this->options);
         
         return $response->getBody()->getContents();
