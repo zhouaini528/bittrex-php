@@ -40,6 +40,8 @@ V3 支持
 
 [Bigone](https://github.com/zhouaini528/bigone-php)   
 
+[Crex24](https://github.com/zhouaini528/crex24-php)   
+
 #### 安装方式
 ```
 composer require linwj/bittrex
@@ -80,7 +82,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
@@ -89,7 +91,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
@@ -98,7 +100,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
@@ -107,35 +109,35 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$bittrex->market()->getTickers();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$bittrex->market()->headSummaries();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$bittrex->market()->getSummaries();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$bittrex->market()->getList();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 ```
@@ -161,7 +163,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 //Track the order
@@ -171,7 +173,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 //Cancel an existing order
@@ -181,7 +183,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 ```
 
@@ -194,14 +196,14 @@ try {
     $result=$bittrex->account()->getl();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$bittrex->account()->getVolume();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 ```
